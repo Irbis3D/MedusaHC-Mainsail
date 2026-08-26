@@ -15,7 +15,7 @@ This repository is intentionally independent from `MedusaHC-Control`:
 Open an SSH terminal on the printer and run:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/Irbis3D/MedusaHC-Mainsail/main/install.sh | bash
+curl -fsSL -H 'Cache-Control: no-cache' https://raw.githubusercontent.com/Irbis3D/MedusaHC-Mainsail/main/install.sh | bash
 ```
 
 This opens the common MedusaHC installation menu. The same menu is available

@@ -6,5 +6,5 @@ temporary="$(mktemp)"
 cleanup() { rm -f -- "${temporary}"; }
 trap cleanup EXIT
 
-curl -fsSL "${INSTALLER_URL}" -o "${temporary}"
+curl -fsSL -H 'Cache-Control: no-cache' "${INSTALLER_URL}" -o "${temporary}"
 bash "${temporary}" "$@"
