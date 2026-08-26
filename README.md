@@ -22,9 +22,11 @@ This opens the common MedusaHC installation menu. The same menu is available
 from the MedusaHC Control repository; this small entry point delegates to that
 canonical installer so the two copies cannot diverge.
 
-The menu can install the standalone panel, replace the primary Mainsail, or
-install MedusaHC Mainsail in parallel. Before modifying `moonraker.conf`, it
-prints the exact diff and requests separate approval.
+The menu manages only this Mainsail integration. It can replace the primary
+Mainsail, install MedusaHC Mainsail in parallel, show status, or remove the mod
+and restore the previous Mainsail. It never installs, updates, or removes the
+standalone MedusaHC Control panel. Before modifying `moonraker.conf`, it prints
+the exact diff and requests separate approval.
 
 ## Pinned upstream build
 
