@@ -1,0 +1,6 @@
+dist/
+__pycache__/
+*.py[cod]
+*.zip
+*.build.json
+
