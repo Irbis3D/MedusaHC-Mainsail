@@ -1,8 +1,10 @@
 # MedusaHC Mainsail
 
 Experimental Mainsail distribution with an embedded MedusaHC navigation tab.
-The tab opens the independently installed MedusaHC Control service on port
-8090, so the control panel remains usable directly when Mainsail is unavailable.
+The tab opens the independently installed MedusaHC Control service through the
+same-origin `/medusahc/` route. The installer proxies only that isolated path
+to the panel's configured local port, while direct access to the panel port
+remains available when Mainsail is unavailable.
 
 This repository is intentionally independent from `MedusaHC-Control`:
 

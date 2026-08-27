@@ -3,7 +3,7 @@
   const viewId = 'medusahc-main-view';
 
   function panelUrl() {
-    return `${window.location.protocol}//${window.location.hostname}:8090/`;
+    return '/medusahc/';
   }
 
   function positionView(view) {

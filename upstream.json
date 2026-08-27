@@ -1,8 +1,7 @@
 {
   "upstream_repository": "mainsail-crew/mainsail",
   "upstream_version": "v2.18.2",
-  "integration_version": "0.1.0",
+  "integration_version": "0.1.1",
   "release_asset": "medusahc-mainsail.zip",
   "automatic_publish": false
 }
-
