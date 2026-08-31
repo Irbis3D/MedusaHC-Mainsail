@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-INSTALLER_URL="https://raw.githubusercontent.com/Irbis3D/MedusaHC-Control/python-controller/install-manager.sh"
+INSTALLER_URL="https://raw.githubusercontent.com/Irbis3D/MedusaHC-Control/main/install-manager.sh"
 temporary="$(mktemp)"
 cleanup() { rm -f -- "${temporary}"; }
 trap cleanup EXIT
