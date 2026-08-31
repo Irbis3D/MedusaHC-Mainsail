@@ -9,7 +9,7 @@ remains available when Mainsail is unavailable.
 This repository is intentionally independent from `MedusaHC-Control`:
 
 - this repository owns Mainsail integration and web release artifacts;
-- `MedusaHC-Control` owns the panel service and the combined installer;
+- `MedusaHC-Control` owns only the independently installed panel service;
 - Moonraker updates both components independently.
 
 ## Install
@@ -20,11 +20,19 @@ Open an SSH terminal on the printer and run:
 bash -c "$(curl -fsSL https://raw.githubusercontent.com/Irbis3D/MedusaHC-Mainsail/main/install.sh)"
 ```
 
-This opens the common MedusaHC installation menu. The same menu is available
-from the MedusaHC Control repository; this small entry point delegates to that
-canonical installer so the two copies cannot diverge.
+This starts the standalone MedusaHC Mainsail installer. It first verifies that
+MedusaHC Control is installed, then asks whether to replace the primary
+Mainsail or install the modified interface in parallel.
 
-The menu manages only this Mainsail integration. It can replace the primary
+Update, status and removal use the same entry point:
+
+```bash
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/Irbis3D/MedusaHC-Mainsail/main/install.sh)" -- update
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/Irbis3D/MedusaHC-Mainsail/main/install.sh)" -- status
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/Irbis3D/MedusaHC-Mainsail/main/install.sh)" -- uninstall
+```
+
+The installer manages only this Mainsail integration. It can replace the primary
 Mainsail, install MedusaHC Mainsail in parallel, show status, or remove the mod
 and restore the previous Mainsail. It never installs, updates, or removes the
 standalone MedusaHC Control panel. Before modifying `moonraker.conf`, it prints
