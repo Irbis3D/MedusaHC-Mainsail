@@ -1,5 +1,8 @@
 # MedusaHC Mainsail
 
+> [!IMPORTANT]
+> **[Installation, updates, removal, and manual setup](INSTALLATION.md)**
+
 Experimental Mainsail distribution with an embedded MedusaHC navigation tab.
 The tab opens the independently installed MedusaHC Control service through the
 same-origin `/medusahc/` route. The installer proxies only that isolated path
