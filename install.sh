@@ -26,10 +26,11 @@ case "${action}" in
 esac
 
 if [[ "${action}" == "status" ]]; then
-  exec python3 "${source_directory}/installer/manager.py" status "$@"
+  python3 "${source_directory}/installer/manager.py" status "$@"
+  exit $?
 fi
 if [[ "${EUID}" -eq 0 ]]; then
-  exec python3 "${source_directory}/installer/manager.py" "${action}" "$@"
+  python3 "${source_directory}/installer/manager.py" "${action}" "$@"
 else
-  exec sudo python3 "${source_directory}/installer/manager.py" "${action}" "$@"
+  sudo python3 "${source_directory}/installer/manager.py" "${action}" "$@"
 fi
