@@ -43,7 +43,9 @@ the exact diff and requests separate approval.
 
 ## Pinned upstream build
 
-`upstream.json` records the tested Mainsail version. Build from an already
+`upstream.json` records the candidate Mainsail version; `-rc` integration
+versions await printer validation and are published only as prereleases.
+The latest stable release remains the default for normal updates. Build from an already
 downloaded official Mainsail release archive:
 
 ```bash

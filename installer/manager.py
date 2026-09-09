@@ -12,6 +12,7 @@ import tempfile
 import time
 import zipfile
 import urllib.request
+import urllib.parse
 from pathlib import Path
 
 try:
@@ -132,8 +133,9 @@ def release_asset_url(release: dict) -> tuple[str, str]:
     fail(f"Latest {REPOSITORY} release does not contain {RELEASE_ASSET}")
 
 
-def download_mainsail_release(destination: Path) -> str:
-    api = f"https://api.github.com/repos/{REPOSITORY}/releases/latest"
+def download_mainsail_release(destination: Path, release_tag: str | None = None) -> str:
+    endpoint = "latest" if release_tag is None else "tags/" + urllib.parse.quote(release_tag, safe="")
+    api = f"https://api.github.com/repos/{REPOSITORY}/releases/{endpoint}"
     request = urllib.request.Request(api, headers={"Accept": "application/vnd.github+json"})
     try:
         with urllib.request.urlopen(request, timeout=30) as response:
@@ -156,7 +158,7 @@ def install_latest_mainsail(mode: str) -> None:
         install_mainsail(mode, archive)
 
 
-def update_mainsail() -> None:
+def update_mainsail(release_tag: str | None = None) -> None:
     require_root()
     manifest = load_manifest()
     item = manifest.get("mainsail", {})
@@ -168,13 +170,13 @@ def update_mainsail() -> None:
     expected = p["standard"] if mode == "replace" else p["parallel"]
     validate_target(target, expected)
     panel_port()
-    if not confirm(f"Update MedusaHC Mainsail in {mode} mode at {target}?"):
+    if not confirm(f"Update MedusaHC Mainsail to {release_tag or 'latest stable release'} in {mode} mode at {target}?"):
         fail("Update cancelled")
     with tempfile.TemporaryDirectory(prefix="medusahc-mainsail-update-") as temporary:
         temporary_path = Path(temporary)
         release = temporary_path / RELEASE_ASSET
         rollback = temporary_path / "rollback.tar.gz"
-        download_mainsail_release(release)
+        installed_tag = download_mainsail_release(release, release_tag)
         if target.is_dir():
             with tarfile.open(rollback, "w:gz") as package:
                 package.add(target, arcname=target.name)
@@ -187,7 +189,7 @@ def update_mainsail() -> None:
                 with tarfile.open(rollback) as package:
                     safe_extract_tar(package, target.parent)
             raise
-    item["archive"] = "latest release"
+    item["archive"] = installed_tag
     item["panel_port"] = panel_port()
     manifest["mainsail"] = item
     save_manifest(manifest)
@@ -516,7 +518,8 @@ def main() -> None:
     sub.add_parser("status")
     simple_install = sub.add_parser("install")
     simple_install.add_argument("--mode", choices=("replace", "parallel"))
-    sub.add_parser("update")
+    update = sub.add_parser("update")
+    update.add_argument("--release", help="Explicit release tag for testing a prerelease or rolling back")
     sub.add_parser("uninstall")
     install = sub.add_parser("install-mainsail")
     install.add_argument("--mode", required=True, choices=("replace", "parallel"))
@@ -535,7 +538,7 @@ def main() -> None:
                 fail("Unknown installation mode")
         install_latest_mainsail(mode)
     elif args.action == "update":
-        update_mainsail()
+        update_mainsail(args.release)
     elif args.action == "uninstall":
         uninstall_mainsail()
     elif args.action == "status":
