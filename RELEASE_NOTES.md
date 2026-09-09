@@ -1,6 +1,6 @@
-# Mainsail 2.19.0 test update
+# Mainsail 2.19.0 stable update
 
-Candidate: `v2.19.0-medusahc.0.1.2-rc.1`.
+Release: `v2.19.0-medusahc.0.1.2`.
 Stable fallback: `v2.18.2-medusahc.0.1.1`.
 
 This builds the MedusaHC navigation integration on the official Mainsail
@@ -14,18 +14,18 @@ console and heightmap performance improvements, editor grammar changes,
 G-code viewer updates, translations and dependency updates.
 See https://github.com/mainsail-crew/mainsail/releases/tag/v2.19.0.
 
-## Install the candidate
+## Install the update
 
 While the printer is idle, run in an SSH terminal:
 
 ```bash
-bash -c "$(curl -fsSL https://raw.githubusercontent.com/Irbis3D/MedusaHC-Mainsail/main/install.sh)" -- update --release v2.19.0-medusahc.0.1.2-rc.1
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/Irbis3D/MedusaHC-Mainsail/main/install.sh)" -- update
 ```
 
 Reload the browser with Ctrl+F5. This updates an existing MedusaHC Mainsail
 installation in its current replace/parallel mode. It preserves the original
-pre-install backup. Do not use the ordinary Update button to select the
-candidate: stable release selection intentionally excludes prereleases.
+pre-install backup. The ordinary installer Update action now selects this
+stable release. Existing RC1 installations can use the same update command.
 
 ## Printer validation
 
@@ -36,11 +36,10 @@ candidate: stable release selection intentionally excludes prereleases.
 - Check the macro list, G-code viewer and navigation on the screen sizes used.
 - Verify the independent Control URL still works.
 
-Full printer validation remains pending; local checks cannot substitute for
-the actual Moonraker/nginx deployment. Browser inspection loaded the application
-and integration scripts with no reported JavaScript errors, reaching the expected
-Moonraker connection failure on the local static server. Navigation requires a
-connected backend and must be checked on the printer.
+The owner tested RC1 on the printer and reported that it works, approving
+promotion to stable. This release uses the same application and integration
+files as RC1; only the release version metadata changes. The checks above
+remain a useful checklist after installation.
 
 Local validation: 13 tests passed, including explicit/stable release selection,
 failed-update rollback in both installation modes, configuration editing and
@@ -50,7 +49,7 @@ The source archive SHA-256 matches the official GitHub release digest:
 198 upstream files are byte-identical. Only `index.html` and `release_info.json`
 are modified, and `mainsail-medusahc.js` is added.
 
-## Return to the stable build
+## Return to the previous stable build
 
 ```bash
 bash -c "$(curl -fsSL https://raw.githubusercontent.com/Irbis3D/MedusaHC-Mainsail/main/install.sh)" -- update --release v2.18.2-medusahc.0.1.1
